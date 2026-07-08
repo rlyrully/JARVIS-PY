@@ -1,17 +1,14 @@
 from core.brain import JarvisBrain
 from core.speaker import speak
 from core.listener import listen
+from core.wakeword import detect
 
 
 jarvis = JarvisBrain()
 
 
 speak(
-    "Initializing Jarvis System"
-)
-
-speak(
-    "Voice interface online"
+    "Jarvis system online"
 )
 
 
@@ -25,21 +22,33 @@ while True:
         continue
 
 
-    if "shutdown" in command.lower():
+
+    if detect(command):
+
 
         speak(
-            "Shutdown sequence activated"
+            "Yes sir?"
+        )
+
+
+        request = listen()
+
+
+        response = jarvis.think(
+            request
+        )
+
+
+        speak(
+            response
+        )
+
+
+
+    if "shutdown jarvis" in command.lower():
+
+        speak(
+            "Goodbye sir"
         )
 
         break
-
-
-
-    response = jarvis.think(
-        command
-    )
-
-
-    speak(
-        response
-    )
