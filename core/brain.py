@@ -1,27 +1,56 @@
-import requests
+from core.memory import Memory
+
 
 class JarvisBrain:
 
     def __init__(self):
+
         self.name = "JARVIS"
-        self.memory = []
 
-    def think(self, text):
+        self.memory = Memory()
 
-        self.memory.append({
-            "user": text
-        })
 
-        # sementara AI simulasi
-        # nanti diganti model AI open source
-        
-        if "nama kamu" in text.lower():
-            return "Saya JARVIS, asisten AI pribadi anda."
+    def think(self,text):
 
-        if "siapa saya" in text.lower():
-            return "Anda adalah pengguna utama sistem ini."
+
+        text = text.lower()
+
+
+        if text.startswith("ingat"):
+
+            data = text.replace(
+                "ingat",
+                ""
+            )
+
+            key,value = data.split(
+                "adalah"
+            )
+
+            self.memory.save(
+                key.strip(),
+                value.strip()
+            )
+
+            return "Baik, saya sudah menyimpannya."
+
+
+        if text.startswith("apa"):
+
+            key = text.replace(
+                "apa",
+                ""
+            ).strip()
+
+
+            result = self.memory.get(key)
+
+
+            if result:
+
+                return result
+
 
         return (
-            "Saya sedang menganalisa: "
-            + text
+            "Saya belum memahami perintah itu."
         )
