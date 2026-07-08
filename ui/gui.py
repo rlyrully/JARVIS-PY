@@ -1,3 +1,4 @@
+from ui.reactor import Reactor
 import tkinter as tk
 
 from core.brain import JarvisBrain
@@ -38,7 +39,9 @@ class JarvisGUI:
             pady=20
         )
 
-
+        self.reactor = Reactor(
+        self.window
+        )
 
         self.chat = tk.Text(
             self.window,
