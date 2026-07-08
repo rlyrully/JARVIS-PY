@@ -1,36 +1,23 @@
-import time
-
-def speak(text):
-    print("JARVIS :", text)
-
-def brain(command):
-
-    if "hello" in command.lower():
-        return "Hello sir, Jarvis system online."
-
-    if "status" in command.lower():
-        return "All systems are running normally."
-
-    if "time" in command.lower():
-        return time.strftime(
-            "Current time is %H:%M"
-        )
-
-    return "I am processing your request."
+from core.brain import JarvisBrain
+from core.speaker import speak
 
 
-speak("Initializing Jarvis...")
-speak("Loading AI Core...")
-speak("System Online")
+jarvis = JarvisBrain()
+
+
+speak("Initializing Jarvis System")
+speak("Artificial intelligence online")
+
 
 while True:
 
     command = input("YOU : ")
 
     if command.lower() == "exit":
-        speak("Goodbye sir.")
+        speak("Shutdown sequence activated")
         break
 
-    answer = brain(command)
 
-    speak(answer)
+    response = jarvis.think(command)
+
+    speak(response)
