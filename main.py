@@ -1,54 +1,45 @@
 from core.brain import JarvisBrain
 from core.speaker import speak
-from core.listener import listen
-from core.wakeword import detect
 
 
 jarvis = JarvisBrain()
 
 
-speak(
-    "Jarvis system online"
-)
+def start_text_mode():
+
+    speak(
+        "Jarvis text mode activated"
+    )
 
 
-while True:
+    while True:
 
 
-    command = listen()
-
-
-    if command == "":
-        continue
-
-
-
-    if detect(command):
-
-
-        speak(
-            "Yes sir?"
+        command = input(
+            "YOU : "
         )
 
 
-        request = listen()
+        if command.lower() == "exit":
+
+            speak(
+                "Jarvis shutting down"
+            )
+
+            break
+
 
 
         response = jarvis.think(
-            request
+            command
         )
 
 
-        speak(
+        print(
+            "JARVIS :",
             response
         )
 
 
 
-    if "shutdown jarvis" in command.lower():
-
-        speak(
-            "Goodbye sir"
-        )
-
-        break
+start_text_mode()
