@@ -1,56 +1,49 @@
 from core.memory import Memory
+from core.ai import AI
 
 
 class JarvisBrain:
 
+
     def __init__(self):
 
-        self.name = "JARVIS"
-
         self.memory = Memory()
+
+        self.ai = AI()
 
 
     def think(self,text):
 
 
-        text = text.lower()
+        if text.lower().startswith("ingat"):
 
-
-        if text.startswith("ingat"):
 
             data = text.replace(
                 "ingat",
                 ""
             )
 
+
             key,value = data.split(
                 "adalah"
             )
+
 
             self.memory.save(
                 key.strip(),
                 value.strip()
             )
 
-            return "Baik, saya sudah menyimpannya."
+
+            return (
+                "Baik, saya akan mengingatnya."
+            )
 
 
-        if text.startswith("apa"):
 
-            key = text.replace(
-                "apa",
-                ""
-            ).strip()
-
-
-            result = self.memory.get(key)
-
-
-            if result:
-
-                return result
-
-
-        return (
-            "Saya belum memahami perintah itu."
+        answer = self.ai.ask(
+            text
         )
+
+
+        return answer
